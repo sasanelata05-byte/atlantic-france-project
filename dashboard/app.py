@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import os
 
 # ----------------------------------------------------------------------------
 # Page config
@@ -41,8 +42,15 @@ st.markdown("""
 # ----------------------------------------------------------------------------
 # Data loading
 # ----------------------------------------------------------------------------
+# Build the CSV path relative to THIS script's own location, not the
+# current working directory. This makes it work identically whether run
+# locally (streamlit run app.py from inside dashboard/) or on Streamlit
+# Cloud (which runs from the repo root).
+APP_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(APP_DIR, "..", "data", "Atlantic_France.csv")
+
 @st.cache_data
-def load_data(path="../data/Atlantic_France.csv"):
+def load_data(path=DATA_PATH):
     df = pd.read_csv(path)
     df["date"] = pd.to_datetime(df["date"], format="%d-%m-%Y")
     df["duration_min"] = df["duration_ms"] / 60000
