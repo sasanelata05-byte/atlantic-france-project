@@ -68,5 +68,3 @@ streamlit run app.py
 - ✅ Live Streamlit dashboard
 - ✅ Executive summary for stakeholders
 
-## 👤 Author
-Unified Mentor Project — Atlantic Recording Corporation
